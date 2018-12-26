@@ -8,17 +8,16 @@
 
 #include <iostream>
 
-const char GetIndexCharValue(const unsigned int index, const char characters[])
+const char *GetCharValueWithIndex(const unsigned int index, const char *characters[], const unsigned int length)
 {
-    const unsigned int length =  static_cast<int>(strlen(characters));
-    char characterCopy = NULL;
+    const char *characterIndex = nullptr;
     
     if (index < length)
     {
-        characterCopy = characters[index];
+        characterIndex = characters[index];
     }
     
-    return characterCopy;
+    return characterIndex;
 }
 
 const char *ReverseCharacters(const char *characters)
@@ -33,28 +32,28 @@ const char *ReverseCharacters(const char *characters)
     return reversedCharacter;
 }
 
-const char *ReverseCharByIndex(const unsigned int index, const char characters[])
+const char *ReverseCharByIndex(const unsigned int index, const char *characters[], const unsigned int length)
 {
-    const char charCopy = GetIndexCharValue(index, characters);
-    const char *characterCopy = &charCopy;
-    if (charCopy != '\0')
+    const char *charValue = GetCharValueWithIndex(index, characters, length);
+    const char *reverseCharValue = nullptr;
+    
+    if (charValue != nullptr)
     {
-        characterCopy = ReverseCharacters(characters);
+        reverseCharValue = ReverseCharacters(charValue);
     }
-    return characterCopy;
+    
+    return reverseCharValue;
 }
 
 int main(int argc, const char * argv[])
 {
-    // insert code here...
-    //std::cout << "Hello, World!\n";
-    const char asd[] = "asd1";
-    const char asd2[] = "HOLA";
+    const char *superHeroNameArray[] = { "Batman", "Superman", "Flash", "Arrow"};
+    const unsigned int length = sizeof(superHeroNameArray) / sizeof(*superHeroNameArray);
     
-    printf("%c", GetIndexCharValue(3, asd));
-    printf("\n");
-    printf("%s", ReverseCharByIndex(1, asd2));
-    printf("\n");
-    
+    printf("Find Hero Name index 3\n");
+    printf("%s\n", GetCharValueWithIndex(3, superHeroNameArray, length)); // Arrow
+    printf("Reverse Hero Name index 1\n");
+    printf("%s\n", ReverseCharByIndex(3, superHeroNameArray, length)); // worrA
+
     return 0;
 }
